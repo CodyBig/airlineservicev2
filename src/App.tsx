@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import './Component/passenger'
+import {Route, Routes} from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Passenger from './Component/passenger';
+import Options from './Component/options';
+import Flights from './Component/flights';
+import Flight from './Model/flight';
+import Passengers from './Model/passengers'
+import APIService from './services/apiServices';
+import Navigation from './Component/navigation';
+import { AxiosResponse } from "axios";
+type AppProps = {
+ 
+};
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type AppState = {
+  flights: Flight[];
+  passengers: Passengers[];
+
+};
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps){
+    super(props);
+    this.state = {flights: [], passengers:[]}
+  }
+ 
+  
+  render() {
+    return (
+      <>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Options/>} />
+        <Route path="/flights" element={<Flights/>} />
+        <Route path="/passenger" element={<Passenger />} />
+      </Routes>
+      </>
+  
+    );
+  }
+
+
 }
 
 export default App;
+

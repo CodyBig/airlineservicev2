@@ -44,30 +44,10 @@ class Passenger extends React.Component<passengerProps, passengerState> {
   }
  
   handleClose = () => {
-    APIService.getPassengers()
-      .then((response: AxiosResponse<Passengers[]>) => {
-        this.setState({
-          passengers: response.data,
-          show: false,
-        });
-      })
-      .catch((err: Error) => {
-        console.log(err);
-      });
+    this.setState({ show: false, addShow: false });
+    window.location.reload();
   };
 
-  handleAddClose = () => {
-    APIService.getPassengers()
-      .then((response: AxiosResponse<Passengers[]>) => {
-        this.setState({
-          passengers: response.data,
-          addShow: false,
-        });
-      })
-      .catch((err: Error) => {
-        console.log(err);
-      });
-  };
 
   handleShow = (passenger: Passengers) => {
     this.setState({
@@ -114,10 +94,13 @@ class Passenger extends React.Component<passengerProps, passengerState> {
 
     console.log(passengerAdd);
     APIService.addPassenger(passengerAdd);
-    this.handleAddClose();
+    window.location.reload();
+    this.handleClose();
   };
   handleOnDelete(id: number) {
     APIService.deletePassenger(id);
+    window.location.reload();
+    
   }
 
   render() {
@@ -209,7 +192,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
         {/*Add Passenger Modal */}
         <Modal
           show={this.state.addShow}
-          onHide={this.handleAddClose}
+          onHide={this.handleClose}
           backdrop="static"
           keyboard={false}
         >

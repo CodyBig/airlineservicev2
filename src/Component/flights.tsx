@@ -58,7 +58,8 @@ class Flights extends React.Component<flightProps, flightState> {
   //Handles the closing of the edit flight modal
   //Handles to try and refresh data again
   handleClose = () => {
-    this.setState({ showFlight: false });
+    this.setState({ showFlight: false, addFlight: false });
+    window.location.reload();
   };
 
   //Handles the open state of Edit Flight Modal
@@ -79,7 +80,7 @@ class Flights extends React.Component<flightProps, flightState> {
   };
 
   handleAddShow = () => {
-    this.setState({ showFlight: !false });
+    this.setState({ addFlight: true });
   };
 
   //handle for getting the flight number values in the edit flight modal
@@ -131,10 +132,7 @@ class Flights extends React.Component<flightProps, flightState> {
     };
     console.log(flightEdit);
     APIService.editFlight(flightEdit);
-    let f = [...this.state.flights];
-    f = f.filter((item) => item.id === this.state.id);
-    f.push(flightEdit);
-    this.setState({ flights: f });
+    window.location.reload();
     this.handleClose();
   };
 
@@ -151,13 +149,32 @@ class Flights extends React.Component<flightProps, flightState> {
       arrivalTime: this.state.arrivalTimeValue,
       maxCapacity: this.state.maxCapValue,
     };
-    console.log(flightAdd);
     APIService.addFlight(flightAdd);
+    console.log("Flight Number " + this.state.flightValue)
     this.handleClose();
   };
 
+  handleAddSubmitClick = (e: any) => {
+    e.preventDefault();
+    const flightAdd: flight_dto = {
+      flightNumber: this.state.flightValue,
+      departureDate: this.state.departureDateValue,
+      arrivalDate: this.state.ArrivingDateValue,
+      departureAirport: this.state.departureAirValue,
+      arrivalAirport: this.state.arrivalAirValue,
+      departureTime: this.state.departureTimeValue,
+      arrivalTime: this.state.arrivalTimeValue,
+      maxCapacity: this.state.maxCapValue,
+    };
+    APIService.addFlight(flightAdd);
+    console.log("Flight Number " + this.state.flightValue)
+    this.handleClose();
+  };
+
+
   handleOnDelete(id: number) {
     APIService.deleteFlight(id);
+    window.location.reload();
   }
   render() {
     return (
@@ -194,6 +211,10 @@ class Flights extends React.Component<flightProps, flightState> {
           </tbody>
         </Table>
 
+
+        <button onClick={this.handleAddShow}>Add Flight</button>
+
+
         <Modal
           show={this.state.showFlight}
           onHide={this.handleClose}
@@ -221,7 +242,7 @@ class Flights extends React.Component<flightProps, flightState> {
 
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlInput1"
+                controlId="exampleForm.ControlInput2"
               >
                 <Form.Label>Flight Number</Form.Label>
                 <Form.Control
@@ -235,7 +256,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea3"
               >
                 <Form.Label>Departure Airport</Form.Label>
                 <Form.Control
@@ -247,7 +268,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea4"
               >
                 <Form.Label>Arrival Airport</Form.Label>
                 <Form.Control
@@ -259,7 +280,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea5"
               >
                 <Form.Label>Departure Time</Form.Label>
                 <Form.Control
@@ -271,7 +292,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea6"
               >
                 <Form.Label>Arrival Time</Form.Label>
                 <Form.Control
@@ -283,7 +304,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea7"
               >
                 <Form.Label>Departure Date</Form.Label>
                 <Form.Control
@@ -295,7 +316,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea8"
               >
                 <Form.Label>Arrival Date</Form.Label>
                 <Form.Control
@@ -307,7 +328,7 @@ class Flights extends React.Component<flightProps, flightState> {
               </Form.Group>
               <Form.Group
                 className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
+                controlId="exampleForm.ControlTextarea9"
               >
                 <Form.Label>Max Capacity</Form.Label>
                 <Form.Control
@@ -323,12 +344,11 @@ class Flights extends React.Component<flightProps, flightState> {
             </Form>
           </Modal.Body>
         </Modal>
-        <button onClick={this.handleAddShow}>Add Flight</button>
+        
 
         {/*Add Flight Modal*/}
         <Modal
           show={this.state.addFlight}
-          onHide={this.handleClose}
           backdrop="static"
           keyboard={false}
         >
@@ -378,7 +398,7 @@ class Flights extends React.Component<flightProps, flightState> {
               >
                 <Form.Label>Departure Time</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="time"
                   value={this.state.departureTimeValue}
                   onChange={this.handleDepartTime}
                 />
@@ -389,7 +409,7 @@ class Flights extends React.Component<flightProps, flightState> {
               >
                 <Form.Label>Arrival Time</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="time"
                   value={this.state.arrivalTimeValue}
                   onChange={this.handleArrivalTime}
                 />
@@ -400,7 +420,7 @@ class Flights extends React.Component<flightProps, flightState> {
               >
                 <Form.Label>Departure Date</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="date"
                   value={this.state.departureDateValue}
                   onChange={this.handleDepartDate}
                 />
@@ -411,7 +431,7 @@ class Flights extends React.Component<flightProps, flightState> {
               >
                 <Form.Label>Arrival Date</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="date"
                   value={this.state.ArrivingDateValue}
                   onChange={this.handleArrivingDate}
                 />
@@ -427,7 +447,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   onChange={this.handleMaxCap}
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="button" onClick={this.handleAddSubmitClick}>
                 Submit
               </Button>
             </Form>

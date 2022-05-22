@@ -22,21 +22,6 @@ namespace FlightService.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("FlightPassenger", b =>
-                {
-                    b.Property<int>("flightId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("passId")
-                        .HasColumnType("int");
-
-                    b.HasKey("flightId", "passId");
-
-                    b.HasIndex("passId");
-
-                    b.ToTable("FlightPassenger");
-                });
-
             modelBuilder.Entity("FlightService.Confirmation", b =>
                 {
                     b.Property<int>("Id")
@@ -48,9 +33,19 @@ namespace FlightService.Migrations
                     b.Property<int>("BookingNumber")
                         .HasColumnType("int");
 
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PassengerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Confirmation", (string)null);
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("PassengerId");
+
+                    b.ToTable("Confirmations");
                 });
 
             modelBuilder.Entity("FlightService.Flight", b =>
@@ -59,11 +54,12 @@ namespace FlightService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("ArrivalAirport")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("ArrivalDateTime")
                         .HasColumnType("datetime2");
@@ -71,8 +67,7 @@ namespace FlightService.Migrations
                     b.Property<string>("DepartureAirport")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("DepartureDateTime")
                         .HasColumnType("datetime2");
@@ -94,72 +89,37 @@ namespace FlightService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Job")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Passengers");
                 });
 
-            modelBuilder.Entity("FlightPassenger", b =>
+            modelBuilder.Entity("FlightService.Confirmation", b =>
                 {
                     b.HasOne("FlightService.Flight", null)
                         .WithMany()
-                        .HasForeignKey("flightId")
+                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FlightService.Passenger", null)
                         .WithMany()
-                        .HasForeignKey("passId")
+                        .HasForeignKey("PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FlightService.Flight", b =>
-                {
-                    b.HasOne("FlightService.Confirmation", "IdNavigation")
-                        .WithOne("Flight")
-                        .HasForeignKey("FlightService.Flight", "Id")
-                        .IsRequired()
-                        .HasConstraintName("FK__Flights__Id__38996AB5");
-
-                    b.Navigation("IdNavigation");
-                });
-
-            modelBuilder.Entity("FlightService.Passenger", b =>
-                {
-                    b.HasOne("FlightService.Confirmation", "IdNavigation")
-                        .WithOne("Passenger")
-                        .HasForeignKey("FlightService.Passenger", "Id")
-                        .IsRequired()
-                        .HasConstraintName("FK__Passengers__Id__37A5467C");
-
-                    b.Navigation("IdNavigation");
-                });
-
-            modelBuilder.Entity("FlightService.Confirmation", b =>
-                {
-                    b.Navigation("Flight")
-                        .IsRequired();
-
-                    b.Navigation("Passenger")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlightService.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,10 +28,8 @@ namespace FlightService.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     FlightNumber = table.Column<int>(type: "int", nullable: false),
-                    DepartureDate = table.Column<DateTime>(type: "date", nullable: false),
-                    ArrivalDate = table.Column<DateTime>(type: "date", nullable: false),
-                    DepartureTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    ArrivalTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    DepartureDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DepartureAirport = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     ArrivalAirport = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     MaxCapacity = table.Column<int>(type: "int", nullable: false)

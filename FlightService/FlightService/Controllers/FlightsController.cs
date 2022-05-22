@@ -54,18 +54,17 @@ namespace FlightService.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFlight(int id, FlightDto flight)
         {
-            if (id != flight.Id)
-            {
-                return BadRequest();
-            }
-            var fl = await _context.Flights.FindAsync(id); 
+            //if (id != flight.Id)
+            //{
+            //    return BadRequest();
+            //}
+            Console.WriteLine(flight.DepartureDate);
+            var fl = await _context.Flights.FindAsync(id);
             fl.FlightNumber = flight.FlightNumber;
-            fl.ArrivalDate = flight.ArrivalDate;
-            fl.DepartureDate = flight.DepartureDate;
+            fl.ArrivalDateTime = DateTime.Parse($"{flight.ArrivalDate} {flight.ArrivalTime}");
+            fl.DepartureDateTime =DateTime.Parse($"{flight.DepartureDate} {flight.DepartureTime}");
             fl.ArrivalAirport = flight.ArrivalAirport;
             fl.DepartureAirport = flight.DepartureAirport;
-            fl.ArrivalTime = flight.ArrivalTime;
-            fl.DepartureTime = flight.DepartureTime;
             fl.MaxCapacity = flight.MaxCapacity;
 
             _context.Entry(fl).State = EntityState.Modified;
@@ -92,16 +91,25 @@ namespace FlightService.Controllers
         // POST: api/Flights
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Flight>> PostFlight(Flight flight)
+        public async Task<ActionResult<Flight>> PostFlight(FlightDto flight)
         {
           if (_context.Flights == null)
           {
               return Problem("Entity set 'AirportDBContext.Flights'  is null.");
           }
-            _context.Flights.Add(flight);
+            var f = new Flight
+            {
+                FlightNumber = flight.FlightNumber,
+                ArrivalAirport = flight.ArrivalAirport,
+                DepartureAirport = flight.DepartureAirport,
+                ArrivalDateTime = DateTime.Parse($"{flight.ArrivalDate} {flight.ArrivalTime}"),
+                DepartureDateTime = DateTime.Parse($"{flight.DepartureDate} {flight.DepartureTime}"),
+                MaxCapacity = flight.MaxCapacity
+            };
+            _context.Flights.Add(f);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFlight", new { id = flight.Id }, flight);
+            return CreatedAtAction("GetFlight", new { id = f.Id }, f);
         }
 
         // DELETE: api/Flights/5

@@ -55,10 +55,10 @@ namespace FlightService.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPassenger(int id, PassengerDto pass)
         {
-            if (id != pass.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != pass.Id)
+            //{
+            //    return BadRequest();
+            //}
 
             var pl = await _context.Passengers.FindAsync(id);
            pl.Name = pass.Name;
@@ -66,7 +66,7 @@ namespace FlightService.Controllers
            pl.Job = pass.Job;
 
 
-            _context.Entry(pass).State = EntityState.Modified;
+            _context.Entry(pl).State = EntityState.Modified;
 
             try
             {
@@ -90,16 +90,22 @@ namespace FlightService.Controllers
         // POST: api/Passengers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Passenger>> PostPassenger(Passenger passenger)
+        public async Task<ActionResult<Passenger>> PostPassenger(PassengerDto passenger)
         {
           if (_context.Passengers == null)
           {
               return Problem("Entity set 'AirportDBContext.Passengers'  is null.");
           }
-            _context.Passengers.Add(passenger);
+            var  p = new Passenger
+            {
+                Name = passenger.Name,
+                Email = passenger.Email,
+                Job = passenger.Job
+            };
+            _context.Passengers.Add(p);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPassenger", new { id = passenger.Id }, passenger);
+            return Ok(p);
         }
 
         // DELETE: api/Passengers/5

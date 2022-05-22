@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightService.Migrations
 {
     [DbContext(typeof(AirportDBContext))]
-    [Migration("20220516213333_Initializer")]
-    partial class Initializer
+    [Migration("20220522184729_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,11 +67,8 @@ namespace FlightService.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("ArrivalDate")
-                        .HasColumnType("date");
-
-                    b.Property<TimeSpan>("ArrivalTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("ArrivalDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DepartureAirport")
                         .IsRequired()
@@ -79,11 +76,8 @@ namespace FlightService.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<DateTime>("DepartureDate")
-                        .HasColumnType("date");
-
-                    b.Property<TimeSpan>("DepartureTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("DepartureDateTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("FlightNumber")
                         .HasColumnType("int");

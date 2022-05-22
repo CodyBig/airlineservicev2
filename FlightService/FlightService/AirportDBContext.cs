@@ -30,6 +30,7 @@ namespace FlightService
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+
         {
             modelBuilder.Entity<Confirmation>(entity =>
             {
@@ -44,15 +45,15 @@ namespace FlightService
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ArrivalDate).HasColumnType("date");
+            
 
                 entity.Property(e => e.DepartureAirport)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+               
 
-                entity.Property(e => e.DepartureDate).HasColumnType("date");
 
-                entity.HasMany(p => p.pass)
+        entity.HasMany(p => p.pass)
                 .WithMany(p => p.flight);
 
                 entity.HasOne(d => d.IdNavigation)

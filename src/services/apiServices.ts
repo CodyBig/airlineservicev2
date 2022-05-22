@@ -20,7 +20,7 @@ const getPassenger = (id: number) => {
 }
 
 const addPassenger = (passenger: passenger_dto) => {
-    return http.post<passenger_dto>("api/Passengers", passenger);
+    return http.post<passengers>("api/Passengers", passenger);
 };
 
 const editPassenger = (passenger: passengers) => {
@@ -41,7 +41,7 @@ const getFlight = (id: number) => {
 }
 
 const addFlight = (flight: flight_dto) => {
-    return http.post<flight_dto>("api/Flights", flight);
+    return http.post<flight>("api/Flights", flight);
 };
 
 const editFlight = ( flight: flight) => {

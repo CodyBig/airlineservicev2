@@ -5,6 +5,44 @@ import APIService from "../services/apiServices";
 import Flight from "../Model/flight";
 import { AxiosResponse } from "axios";
 import flight, { flight_dto } from "../Model/flight";
+import styled from "styled-components";
+
+const ButtonStyle = styled.button`
+  appearance: none;
+  background-color: transparent;
+  border-radius: 0.6em;
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 1;
+  padding: .7em 1.8em;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+ 
+  color: black;
+  box-shadow: 70px 0 40px 40px white inset, 0 0 0 0 white;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  
+  &:hover{
+    color: black;
+  outline: 0;
+  box-shadow: 0 0 10px 0 black inset, 0 0 10px 4px black;
+  }
+  &:focus{
+    color: black;
+  outline: 0;
+  }
+  
+  &:active{
+    color: black;
+    outline: 0;
+  box-shadow: 0 0 10px 0 black inset, 0 0 10px 4px black;
+ 
+  transform: translateY(4px);
+  }`
+
+
 type flightProps = {};
 
 type flightState = {
@@ -195,14 +233,14 @@ class Flights extends React.Component<flightProps, flightState> {
                   <td>{flights.arrivalTime.toString()}</td>
                   <td>{flights.maxCapacity}</td>
                   <td>
-                    <button onClick={() => this.handleShow(flights)}>
+                    <ButtonStyle onClick={() => this.handleShow(flights)}>
                       Edit
-                    </button>
+                    </ButtonStyle>
                   </td>
                   <td>
-                    <button onClick={() => this.handleOnDelete(flights.id)}>
+                    <ButtonStyle onClick={() => this.handleOnDelete(flights.id)}>
                       Delete
-                    </button>
+                    </ButtonStyle>
                   </td>
                 </tr>
               </React.Fragment>
@@ -210,10 +248,7 @@ class Flights extends React.Component<flightProps, flightState> {
           </tbody>
         </Table>
 
-
-        <button onClick={this.handleAddShow}>Add Flight</button>
-
-
+        <ButtonStyle onClick={this.handleAddShow}>Add Flight</ButtonStyle>
         <Modal
           show={this.state.showFlight}
           onHide={this.handleClose}

@@ -3,8 +3,45 @@ import { Table, Modal, Form, Button } from "react-bootstrap";
 import APIService from "../services/apiServices";
 import Passengers from "../Model/passengers";
 import PassengerColumn from "./passengercolumn";
-import { AxiosResponse } from "axios";
+import styled from "styled-components";
 import passengers, { passenger_dto } from "../Model/passengers";
+
+const ButtonStyle = styled.button`
+  appearance: none;
+  background-color: transparent;
+  border-radius: 0.6em;
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 1;
+  padding: .7em 1.8em;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+
+ 
+  color: black;
+  box-shadow: 70px 0 40px 40px white inset, 0 0 0 0 white;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  
+  &:hover{
+    color: black;
+  outline: 0;
+  box-shadow: 0 0 10px 0 black inset, 0 0 10px 4px black;
+  }
+  &:focus{
+    color: black;
+  outline: 0;
+  }
+  
+  &:active{
+    color: black;
+    outline: 0;
+  box-shadow: 0 0 10px 0 black inset, 0 0 10px 4px black;
+ 
+  transform: translateY(4px);
+  }`
+
 type passengerProps = {};
 
 type passengerState = {
@@ -118,12 +155,12 @@ class Passenger extends React.Component<passengerProps, passengerState> {
                   <td>{pass.job}</td>
                   <td>{pass.email}</td>
                   <td>
-                    <button onClick={() => this.handleShow(pass)}>Edit</button>
+                    <ButtonStyle onClick={() => this.handleShow(pass)}>Edit</ButtonStyle>
                   </td>
                   <td>
-                    <button onClick={() => this.handleOnDelete(pass.id)}>
+                    <ButtonStyle onClick={() => this.handleOnDelete(pass.id)}>
                       Delete
-                    </button>
+                    </ButtonStyle>
                   </td>
                 </tr>
               </React.Fragment>
@@ -190,7 +227,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
           </Modal.Body>
         </Modal>
 
-        <button onClick={this.handleAddShow}>Add Passenger</button>
+        <ButtonStyle onClick={this.handleAddShow}>Add Passenger</ButtonStyle>
         {/*Add Passenger Modal */}
         <Modal
           show={this.state.addShow}

@@ -369,6 +369,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   value={this.state.flightValue}
                   name="FlightNumber"
                   onChange={this.handleFlightNum}
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -381,6 +382,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   value={this.state.departureAirValue}
                   onChange={this.handleDepartAir}
                   placeholder="Enter the departing airport"
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -393,6 +395,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   value={this.state.arrivalAirValue}
                   onChange={this.handleArrivalAirValue}
                   placeholder="Enter the arriving airport"
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -404,6 +407,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="time"
                   value={this.state.departureTimeValue}
                   onChange={this.handleDepartTime}
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -415,6 +419,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="time"
                   value={this.state.arrivalTimeValue}
                   onChange={this.handleArrivalTime}
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -426,6 +431,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="date"
                   value={this.state.departureDateValue}
                   onChange={this.handleDepartDate}
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -437,6 +443,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="date"
                   value={this.state.ArrivingDateValue}
                   onChange={this.handleArrivingDate}
+                  required
                 />
               </Form.Group>
               <Form.Group
@@ -449,6 +456,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   value={this.state.maxCapValue}
                   onChange={this.handleMaxCap}
                   placeholder="Enter the max capacity"
+                  required
                 />
               </Form.Group>
               <Button variant="primary" type="button" onClick={this.handleAddSubmitClick}>

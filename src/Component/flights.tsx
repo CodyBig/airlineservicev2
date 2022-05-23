@@ -167,7 +167,6 @@ class Flights extends React.Component<flightProps, flightState> {
       maxCapacity: this.state.maxCapValue,
     };
     APIService.addFlight(flightAdd);
-    console.log("Flight Number " + this.state.flightValue)
     this.handleClose();
   };
 
@@ -233,7 +232,6 @@ class Flights extends React.Component<flightProps, flightState> {
                 <Form.Label>id</Form.Label>
                 <Form.Control
                   type="number"
-                  placeholder="Enter the flight number"
                   value={this.state.id}
                   name="FlightId"
                   disabled={true}
@@ -263,6 +261,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="text"
                   value={this.state.departureAirValue}
                   onChange={this.handleDepartAir}
+                  placeholder="Enter the departing airport"
                   required
                 />
               </Form.Group>
@@ -275,6 +274,8 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="text"
                   value={this.state.arrivalAirValue}
                   onChange={this.handleArrivalAirValue}
+                  placeholder="Enter the arriving airport"
+
                   required
                 />
               </Form.Group>
@@ -332,7 +333,7 @@ class Flights extends React.Component<flightProps, flightState> {
               >
                 <Form.Label>Max Capacity</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   value={this.state.maxCapValue}
                   onChange={this.handleMaxCap}
                   required
@@ -379,6 +380,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="text"
                   value={this.state.departureAirValue}
                   onChange={this.handleDepartAir}
+                  placeholder="Enter the departing airport"
                 />
               </Form.Group>
               <Form.Group
@@ -390,6 +392,7 @@ class Flights extends React.Component<flightProps, flightState> {
                   type="text"
                   value={this.state.arrivalAirValue}
                   onChange={this.handleArrivalAirValue}
+                  placeholder="Enter the arriving airport"
                 />
               </Form.Group>
               <Form.Group
@@ -442,9 +445,10 @@ class Flights extends React.Component<flightProps, flightState> {
               >
                 <Form.Label>Max Capacity</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   value={this.state.maxCapValue}
                   onChange={this.handleMaxCap}
+                  placeholder="Enter the max capacity"
                 />
               </Form.Group>
               <Button variant="primary" type="button" onClick={this.handleAddSubmitClick}>

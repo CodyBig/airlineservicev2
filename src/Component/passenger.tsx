@@ -165,6 +165,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
                   value={this.state.email}
                   onChange={this.handleEmail}
                   required
+                  placeholder="Enter email address"
                 />
               </Form.Group>
               <Form.Group
@@ -176,6 +177,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
                   type="text"
                   value={this.state.job}
                   onChange={this.handleJob}
+                  placeholder="Enter current job"
                   required
                   
                 />
@@ -208,7 +210,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter the flight number"
+                  placeholder="Enter the passenger's name"
                   value={this.state.name}
                   onChange={this.handleName}
                   required
@@ -223,6 +225,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
                   type="text"
                   value={this.state.email}
                   onChange={this.handleEmail}
+                  placeholder="Enter the passenger's email address"
                   required
                 />
               </Form.Group>
@@ -235,6 +238,7 @@ class Passenger extends React.Component<passengerProps, passengerState> {
                   type="text"
                   value={this.state.job}
                   onChange={this.handleJob}
+                  placeholder="Enter the passenger's current job"
                   required
                 />
               </Form.Group>
